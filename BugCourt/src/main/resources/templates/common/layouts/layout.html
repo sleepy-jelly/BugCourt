@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+    <!--common JS / CSS area-->
+    <head th:replace="~{common/fragments/config :: config}">
+        <title layout:title-pattern="$LAYOUT_TITLE : $CONTENT_TITLE">Bug Court</title>
+    </head>
+
+    <body>
+        <!--including Header-->
+        <header th:replace="~{common/fragments/header :: header}"></header>
+        
+        <!--including Content-->
+        <th:block layout:fragment="Content"></th:block>
+    
+        <!--including Footer-->
+        <footer th:replace="~{common/fragments/footer :: footer}"></footer>
+    </body>
+</html>
