@@ -16,6 +16,9 @@ local.properties
 .loadpath
 .recommenders
 
+
+
+
 # External tool builders
 .externalToolBuilders/
 
@@ -98,3 +101,8 @@ dist-ssr
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse
 /.project
+
+
+
+# application.properties api key or something 
+.application.properties
