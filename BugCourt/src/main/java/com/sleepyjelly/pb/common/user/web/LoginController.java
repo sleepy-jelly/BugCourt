@@ -35,6 +35,7 @@ public class LoginController extends BaseController{
 		
 		mav.setViewName("thymeleaf/login");
 		//test for codeQL
+		//test for ci with maven
 		return "thymeleaf/user/login";
 	}
 	
