@@ -10,6 +10,8 @@
  
     <properties>
         <configuration-compilerArgument>-Xlint:all</configuration-compilerArgument>
+        <maven.compiler.source>17</maven.compiler.source>
+  	 	<maven.compiler.target>17</maven.compiler.target>
         <configuration-target>17</configuration-target>
         <configuration-source>17</configuration-source>
         <java.version>17</java.version>
