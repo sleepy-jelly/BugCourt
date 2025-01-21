@@ -166,8 +166,6 @@
 		    <groupId>nz.net.ultraq.thymeleaf</groupId>
 		    <artifactId>thymeleaf-layout-dialect</artifactId>
 		</dependency>
-
-
     </dependencies>
     <build>
         <plugins>
@@ -175,7 +173,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>3.4.1</version>
-                <configuration>
+                <configuration> 
                     <source>${configurati${configuration-source}</source>                  
                     <target>${configurati${configuration-target}</target>                
                     <compilerArgument>-Xlint:all</compilerArgument>
