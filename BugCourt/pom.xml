@@ -183,7 +183,7 @@
 	            <artifactId>frontend-maven-plugin</artifactId>
       			  <version>1.15.1</version>
 	            <configuration>
-	                <!-- package.json & bug-court-react directory -->
+	                <!-- package.json & bug-court-react Directory -->
 	                <workingDirectory>../BugCourt/src/main/bug-court-react</workingDirectory>
 	                <!-- Local install directory -->
 	                <installDirectory>target</installDirectory>
