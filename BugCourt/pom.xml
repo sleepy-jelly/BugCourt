@@ -158,12 +158,6 @@
 		    <groupId>org.apache.tomcat.embed</groupId>
 		    <artifactId>tomcat-embed-jasper</artifactId>
 		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf -->
-<!--		<dependency>-->
-<!--		    <groupId>org.springframework.boot</groupId>-->
-<!--		    <artifactId>spring-boot-starter-thymeleaf</artifactId>-->
-<!--		</dependency>-->
 		<!-- https://mvnrepository.com/artifact/nz.net.ultraq.thymeleaf/thymeleaf-layout-dialect -->
 		<dependency>
 		    <groupId>nz.net.ultraq.thymeleaf</groupId>
@@ -184,6 +178,73 @@
 <!--                    <showDeprecation>true</showDeprecation>-->
                 </configuration>
             </plugin>
+         	<plugin>
+	            <groupId>com.github.eirslett</groupId>
+	            <artifactId>frontend-maven-plugin</artifactId>
+      			  <version>1.15.1</version>
+	            <configuration>
+	                <!-- package.json & bug-court-react directory -->
+	                <workingDirectory>../BugCourt/src/main/bug-court-react</workingDirectory>
+	                <!-- Local install directory -->
+	                <installDirectory>target</installDirectory>
+	            </configuration>
+	            <executions>
+	                <execution>
+	                    <id>install node and npm</id>
+	                    <goals>
+	                        <goal>install-node-and-npm</goal>
+	                    </goals>
+	                    <!-- optional: default phase is "generate-resources" -->
+	                    <phase>generate-resources</phase>
+	                    <configuration>
+	                        <nodeVersion>v22.13.0</nodeVersion>
+	                        <npmVersion>10.9.2</npmVersion>
+	                    </configuration>
+	                </execution>
+	                <execution>
+	                    <id>npm install</id>
+	                    <goals>
+	                        <goal>npm</goal>
+	                    </goals>
+	                    <!-- optional: default phase is "generate-resources" -->
+	                    <phase>generate-resources</phase>
+	                    <configuration>
+	                        <!-- optional: The default argument is actually
+	                        "install", so unless you need to run some other npm command,
+	                        you can remove this whole <configuration> section.
+	                        -->
+	                        <arguments>install</arguments>
+	                    </configuration>
+	                </execution>
+	                <execution>
+	                    <id>npm run build</id>
+	                    <goals>
+	                        <goal>npm</goal>
+	                    </goals>
+	                    <configuration>
+	                        <arguments>run build</arguments>
+	                    </configuration>
+	                </execution>
+	            </executions>
+	        </plugin>
+			<plugin>
+			    <artifactId>maven-antrun-plugin</artifactId>
+			    <executions>
+			        <execution>
+			            <phase>generate-resources</phase>
+			            <configuration>
+			                <target>
+			                    <copy todir="${project.build.directory}/classes/public">
+			                        <fileset dir="../BugCourt/src/main/bug-court-react"/>
+			                    </copy>
+			                </target>
+			            </configuration>
+			            <goals>
+			                <goal>run</goal>
+			            </goals>
+			        </execution>
+			    </executions>
+			</plugin>
         </plugins>
     </build>
 </project>
