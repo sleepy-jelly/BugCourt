@@ -1,7 +1,14 @@
+import ApexCharts from 'apexcharts';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import Chart from 'chart.js/auto';
+import Quill from 'quill';
+import 'simple-datatables';
+import tinymce from 'tinymce';
+
 const Header = () => {
   return(
     <>
-      <header>헤더 컴포넌트입니다.</header>    
+      <header>Header Component.</header>    
       <>
           <meta charSet="UTF-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,43 +19,43 @@ const Header = () => {
           />
           <title>BugCourt</title>
           {/* Template Main CSS File */}
-          <link type="text/css" rel="stylesheet" href="/css/style.css" />
+          <link type="text/css" rel="stylesheet" href="../../assets/css/style.css" />
           {/* Vendor JS Files */}
           {/* Template Main JS File */}
-          {/* Vendor CSS Files */}
+          {/* Vendor CSS FilesC */}
           <link
             type="text/css"
-            href="/vendor/bootstrap/css/bootstrap.min.css"
+            href="../../assets/vendor/bootstrap/css/bootstrap.min.css"
             rel="stylesheet"
           />
           <link
             type="text/css"
-            href="/vendor/bootstrap-icons/bootstrap-icons.css"
+            href="../../assets/vendor/bootstrap-icons/bootstrap-icons.css"
             rel="stylesheet"
           />
           <link
             type="text/css"
-            href="/vendor/boxicons/css/boxicons.min.css"
+            href="../../assets/vendor/boxicons/css/boxicons.min.css"
             rel="stylesheet"
           />
           <link
             type="text/css"
-            href="/vendor/quill/quill.snow.css"
+            href="../../assets/vendor/quill/quill.snow.css"
             rel="stylesheet"
           />
           <link
             type="text/css"
-            href="/vendor/quill/quill.bubble.css"
+            href="../../assets/vendor/quill/quill.bubble.css"
             rel="stylesheet"
           />
           <link
             type="text/css"
-            href="/vendor/remixicon/remixicon.css"
+            href="../../assets/vendor/remixicon/remixicon.css"
             rel="stylesheet"
           />
           <link
             type="text/css"
-            href="/vendor/simple-datatables/style.css"
+            href="../../assets/vendor/simple-datatables/style.css"
             rel="stylesheet"
           />
           {/* Favicons */}
