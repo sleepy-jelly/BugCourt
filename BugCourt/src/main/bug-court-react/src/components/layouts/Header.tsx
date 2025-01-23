@@ -1,9 +1,5 @@
-import ApexCharts from 'apexcharts';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import Chart from 'chart.js/auto';
-import Quill from 'quill';
 import 'simple-datatables';
-import tinymce from 'tinymce';
 
 const Header = () => {
   return(
