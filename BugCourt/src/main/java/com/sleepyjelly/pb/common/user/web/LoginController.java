@@ -1,8 +1,11 @@
 package com.sleepyjelly.pb.common.user.web;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -39,6 +42,15 @@ public class LoginController extends BaseController{
 		return "thymeleaf/user/login";
 	}
 	
+	@GetMapping("/login/viewLogin")
+	@PostMapping("/login/viewLogin")
+	public ResponseEntity<Void> login(ModelAndView mav) {
+		log.info("strd");
+		return ResponseEntity.status(HttpStatus.FOUND)
+                .header("Location", "http://localhost:5173/index")
+                .build();
+		
+	}
 	
 	
 }

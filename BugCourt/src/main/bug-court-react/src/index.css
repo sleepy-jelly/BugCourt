@@ -1,3 +1,27 @@
+/* src/index.css */
+/* BugCourt */
+/* Import all individual CSS files here */
+@import './assets/vendor/bootstrap/css/bootstrap.min.css';
+/* Template Main CSS File */
+/* Designed by BootstrapMade ! go check here there is awesome free designs~! -jelly- */
+@import './assets/css/style.css';
+
+/* Vendor CSS FilesC */
+@import './assets/vendor/bootstrap/css/bootstrap.min.css';
+@import './assets/vendor/bootstrap-icons/bootstrap-icons.css';
+@import './assets/vendor/boxicons/css/boxicons.min.css';
+
+@import './assets/vendor/quill/quill.snow.css';
+@import './assets/vendor/quill/quill.bubble.css';
+
+@import './assets/vendor/remixicon/remixicon.css';
+@import './assets/vendor/remixicon/remixicon.css';
+
+@import './assets/vendor/simple-datatables/style.css';
+
+/* 
+  default css from react
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -65,4 +89,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+} */
