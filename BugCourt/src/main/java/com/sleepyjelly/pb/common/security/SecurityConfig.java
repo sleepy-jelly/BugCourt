@@ -1,7 +1,5 @@
 package com.sleepyjelly.pb.common.security;
 
-import org.apache.catalina.User;
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,12 +17,12 @@ import com.sleepyjelly.pb.common.user.UserRole;
 public class SecurityConfig {
 
     @Bean
-    public BCryptPasswordEncoder encoder() {
+    BCryptPasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     	http
 		.csrf((csrfConfig) ->
 				csrfConfig.disable()
@@ -36,7 +34,7 @@ public class SecurityConfig {
 		)
 		.authorizeHttpRequests((authorizeRequests) ->
 				authorizeRequests
-						.requestMatchers(PathRequest.toH2Console()).permitAll()
+//						.requestMatchers(PathRequest.toH2Console()).permitAll()
 						.requestMatchers("/", "/login/**").permitAll()
 						.requestMatchers("/bbs/**", "/toRoot/v1/bbs/**").hasAnyAuthority(UserRole.USER,UserRole.MEMBERSHIP_USER,UserRole.ADMIN)
 						.requestMatchers("/admins/**", "/toRoot/v1/admins/**").hasAnyAuthority(UserRole.ADMIN)
@@ -62,7 +60,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public CorsFilter corsFilter() {
+    CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
         config.addAllowedOrigin("http://localhost:5173");//  bug-court-react@0.0.0 dev 	 //	> vite
