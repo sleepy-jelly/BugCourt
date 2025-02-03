@@ -4,9 +4,9 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -491.6667,
-    "scrollLeft": -597,
-    "zoomLevel": 0.85,
+    "scrollTop": -545.3333,
+    "scrollLeft": -763,
+    "zoomLevel": 0.67,
     "show": 495,
     "database": 1,
     "databaseName": "MARIA_DB",
@@ -304,7 +304,7 @@
           "color": "#FFFFFF"
         },
         "meta": {
-          "updateAt": 1738569714413,
+          "updateAt": 1738570851968,
           "createAt": 1736901051945
         }
       },
