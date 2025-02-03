@@ -21,18 +21,17 @@ public class LoginController extends BaseController{
 	
 	@RequestMapping(value="/viewLogin", method = {RequestMethod.GET, RequestMethod.POST})
 	public ResponseEntity<Void> login(ModelAndView mav) {
-		log.info("strd");
+		log.info("viewLogin");
 		return ResponseEntity.status(HttpStatus.FOUND)
-                .header("Location", "http://localhost:5173/login/login")
+                .header("Location", "http://localhost:5173/login/login-page")
                 .build();
 	}
 	
-	@PostMapping("/viewPageRegister")
+	@RequestMapping(value="/viewPageRegister", method = {RequestMethod.GET, RequestMethod.POST})
 	public ResponseEntity<Void> viewPageRegister(ModelAndView mav) {
-		
-		log.info("strd");
+		log.info("viewPageRegister");
 		return ResponseEntity.status(HttpStatus.FOUND)
-                .header("Location", "http://localhost:5173/viewPageRegister")
+                .header("Location", "http://localhost:5173/login/register-page")
                 .build();
 	}
 	

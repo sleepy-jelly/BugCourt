@@ -11,10 +11,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import com.sleepyjelly.pb.common.user.UserRole;
-
+ 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+public class SecurityConfig {	
 
     @Bean
     BCryptPasswordEncoder encoder() {
@@ -72,5 +72,6 @@ public class SecurityConfig {
 
         return new CorsFilter(source);
     }
-
+    
 }
+
