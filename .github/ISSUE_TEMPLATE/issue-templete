@@ -1,0 +1,29 @@
+name: Issue Template
+description: templete when you have issue
+title: "[Issue]: Issue Title"
+labels: ["Issue"]
+
+body:
+  - type: textarea
+    id: feature-contents
+    attributes:
+      label: Issue description
+      description: write detail of Issue
+      placeholder: ex. exception while maven build
+    validations:
+      required: true
+  - type: input
+    id: prepare-issue
+    attributes:
+      label: Prepare Issue(Optional)
+      description: any relation issue?
+      placeholder: "ex. #14"
+    validations:
+      required: false
+  - type: textarea
+    id: related-view
+    attributes:
+      label: Related View(Optional)
+      description: related View(fornt-end)
+      placeholder: ex. HomeView
+    validations:
