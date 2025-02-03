@@ -5,6 +5,11 @@ Repository for an online compiler server designed to judge code
 WIP
 
 
+TODO: upload documents
+
+TODO: upload ERD
+
+
 Setup CodeX-API Locally
 
   Install Compile API locally
