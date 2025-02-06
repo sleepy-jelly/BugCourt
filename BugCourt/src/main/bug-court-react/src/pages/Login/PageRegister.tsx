@@ -6,7 +6,7 @@ const PageRegister = () => {
       <>
         <meta charSet="utf-8" />
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-        <title>Pages / Register - NiceAdmin Bootstrap Template</title>
+        <title>Bug Court</title>
         <meta content="" name="description" />
         <meta content="" name="keywords" />
         {/* =======================================================
@@ -28,7 +28,7 @@ const PageRegister = () => {
                         className="logo d-flex align-items-center w-auto"
                       >
                         <img src="assets/img/logo.png" alt="" />
-                        <span className="d-none d-lg-block">NiceAdmin</span>
+                        <span className="d-none d-lg-block">BugCourt</span>
                       </a>
                     </div>
                     {/* End Logo */}
@@ -141,7 +141,7 @@ const PageRegister = () => {
                           <div className="col-12">
                             <p className="small mb-0">
                               Already have an account?{" "}
-                              <a href="/toRoot/login/viewLogin">Log in</a>
+                              <a href="pages-login.html">Log in</a>
                             </p>
                           </div>
                         </form>
