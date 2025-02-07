@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootTest(classes = BugCourtApplicationTestConfig.class, webEnvironment = WebEnvironment.DEFINED_PORT)
-@MapperScan("com.sleepyjelly.pb") // Ensure this matches your package structure
+@MapperScan("com.sleepyjelly.pb.common.user.service.impl")
 class BugCourtApplicationTests {
 
 	@Test
