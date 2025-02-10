@@ -17,7 +17,6 @@ public class HomeController extends BaseController{
 
 	
 	@GetMapping("/login")
-	@PostMapping("/login")
 	public String viewHome(ModelAndView mav) {
 		
 		mav.addObject("asdf", "123");

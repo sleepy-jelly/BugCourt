@@ -1,20 +1,27 @@
 package com.sleepyjelly.pb.common.security;
 
+import javax.sql.DataSource;
+
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import com.sleepyjelly.pb.common.user.UserRole;
- 
-@Configuration
-@EnableWebSecurity
-public class SecurityConfig {	
+	 
+	@Configuration
+	@EnableWebSecurity
+	public class SecurityConfig {	
 
     @Bean
     BCryptPasswordEncoder encoder() {
@@ -58,7 +65,21 @@ public class SecurityConfig {
 
 		return http.build();
     }
-
+//
+//    
+//    @Bean
+//    UserDetailsService userDetailsService() {
+//    	InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+//		return manager;
+//    }
+//    
+    
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(10);
+    }
+    
+    
     @Bean
     CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
@@ -71,7 +92,16 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", config);
 
         return new CorsFilter(source);
-    }
+    } 
+    
+    @Bean
+	SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+	    SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
+	    sessionFactory.setDataSource(dataSource);
+	    sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:mappers/*.xml"));
+	    return sessionFactory.getObject();
+	}
+    
     
 }
 
