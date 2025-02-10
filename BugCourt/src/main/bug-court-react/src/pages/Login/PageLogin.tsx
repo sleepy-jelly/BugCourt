@@ -1,5 +1,6 @@
 import Layout from '../../components/layouts/Layout'
 
+
 const Login = () => {
   return (
     <Layout>
@@ -26,13 +27,13 @@ const Login = () => {
                           Login to Your Account
                         </h5>
                         <p className="text-center small">
-                          Enter your username &amp; password to login
+                          Enter your userId &amp; password to login
                         </p>
                       </div>
                       <form className="row g-3 needs-validation" noValidate>
                         <div className="col-12">
-                          <label htmlFor="yourUsername" className="form-label">
-                            Username
+                          <label htmlFor="yourUserId" className="form-label">
+                          userId
                           </label>
                           <div className="input-group has-validation">
                             <span className="input-group-text" id="inputGroupPrepend">
@@ -40,13 +41,13 @@ const Login = () => {
                             </span>
                             <input
                               type="text"
-                              name="username"
+                              name="userId"
                               className="form-control"
-                              id="yourUsername"
+                              id="YourUser-ID"
                               required
                             />
                             <div className="invalid-feedback">
-                              Please enter your username.
+                              Please enter your User-ID.
                             </div>
                           </div>
                         </div>
