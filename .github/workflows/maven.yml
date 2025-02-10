@@ -34,7 +34,9 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
           cache: 'maven'
-
+      - run: touch ./src/main/resources/application.properties
+      - run: echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./src/main/resources/application.properties
+      - run: cat ./src/main/resources/application.properties
       - name: Wait for MariaDB to be ready
         run: |
           for i in {1..30}; do
