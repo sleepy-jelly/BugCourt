@@ -44,7 +44,7 @@ jobs:
           done
           echo "Database not available" && exit 1
       - name: Update Dependencies
-        run: mvn dependency:resolve
+        run: mvn dependency:resolve --file BugCourt/pom.xml
       - name: Build with Maven
         run: mvn -B package --file BugCourt/pom.xml
     #  run: mvn --batch-mode --update-snapshots verify --file BugCourt/pom.xml
