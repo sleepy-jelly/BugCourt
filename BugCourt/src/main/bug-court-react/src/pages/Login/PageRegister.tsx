@@ -1,6 +1,67 @@
 import Layout from '../../components/layouts/Layout'
+import apiRequester from '../../Api/AxiosInstance';
+import { useNavigate } from "react-router-dom";
+
+import { useState } from "react";
 
 const PageRegister = () => {
+
+  const [inputUserNm, setUserName] = useState("");
+  const [inputUserId, setUserId] = useState("");
+  const [inputUserPw, setUserPw] = useState("");
+  const [inputUserEmail, setUserEmail] = useState("");
+
+  // 메시지 저장
+  // const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
+
+  // const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
+
+  // 값 추적
+  const handleInputUserId = (e : React.ChangeEvent<HTMLInputElement>) => {
+    setUserId(e.target.value);
+  };
+  const handleInputUserNm = (e : React.ChangeEvent<HTMLInputElement>) => {
+    setUserName(e.target.value);
+  };
+  const handleInputUserPw = (e : React.ChangeEvent<HTMLInputElement>) => {
+    setUserPw(e.target.value);
+  };  
+  const handleInputUserEmail = (e : React.ChangeEvent<HTMLInputElement>) => {
+    setUserEmail(e.target.value);
+  };  
+
+  
+  const submitHandler = (e : any) => {
+    //1. 페이지 리로드 방지
+    e.preventDefault();
+  }
+  const signUp = () => {
+    console.log("Requesting sign-up..."); // Debug log
+    alert("123123123");
+
+    apiRequester
+      .post("/login/registerProcess", {
+        userId: inputUserId,
+        userPw: inputUserPw,
+        userNm: inputUserNm,
+        userEmail: inputUserEmail,
+      })
+      .then((response) => {
+        console.log("Response received:", response); // Debug log
+        alert("aaa21q3123123a");
+        goToLogin();
+      })
+      .catch((error) => {
+        console.error("Error during sign-up:", error);
+      });
+  };
+  const navigate = useNavigate();
+  
+  const goToLogin = () => {
+    navigate("/login");
+  };
+
+
   return (
     <Layout>
       <>
@@ -48,10 +109,11 @@ const PageRegister = () => {
                               Your Name
                             </label>
                             <input
-                              type="text"
-                              name="name"
                               className="form-control"
-                              id="yourName"
+                              type="name"
+                              name="userNm"
+                              value={inputUserNm}
+                              onChange={handleInputUserNm}
                               required
                             />
                             <div className="invalid-feedback">
@@ -63,10 +125,12 @@ const PageRegister = () => {
                               Your Email
                             </label>
                             <input
+                              className="form-control"
                               type="email"
                               name="email"
-                              className="form-control"
-                              id="yourEmail"
+                              id="userEmail"
+                              value={inputUserEmail}
+                              onChange={handleInputUserEmail}
                               required
                             />
                             <div className="invalid-feedback">
@@ -85,10 +149,12 @@ const PageRegister = () => {
                                 @
                               </span>
                               <input
-                                type="text"
-                                name="username"
                                 className="form-control"
-                                id="yourUsername"
+                                type="text"
+                                name="userId"
+                                id="userId"
+                                value={inputUserId}
+                                onChange={handleInputUserId}
                                 required
                               />
                               <div className="invalid-feedback">
@@ -101,10 +167,12 @@ const PageRegister = () => {
                               Password
                             </label>
                             <input
-                              type="password"
-                              name="password"
                               className="form-control"
-                              id="yourPassword"
+                              type="password"
+                              name="userPw"
+                              id="userPw"
+                              value={inputUserPw}
+                              onChange={handleInputUserPw}
                               required
                             />
                             <div className="invalid-feedback">
@@ -134,7 +202,7 @@ const PageRegister = () => {
                             </div>
                           </div>
                           <div className="col-12">
-                            <button className="btn btn-primary w-100" type="submit">
+                            <button type="button" className="btn btn-primary w-100" onClick={signUp}>
                               Create Account
                             </button>
                           </div>

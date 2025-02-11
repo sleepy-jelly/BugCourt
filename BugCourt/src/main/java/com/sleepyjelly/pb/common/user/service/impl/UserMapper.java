@@ -9,8 +9,9 @@ import com.sleepyjelly.pb.common.user.service.UserVO;
 public interface UserMapper {
 
 	public UserVO selectUserByUserId(UserVO userVO);
-
 	
+	public UserVO insertUserByRegiste(UserVO userVO);
 	
+		
 	
 }

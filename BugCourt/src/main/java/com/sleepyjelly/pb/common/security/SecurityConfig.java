@@ -43,8 +43,8 @@ import com.sleepyjelly.pb.common.user.UserRole;
 				authorizeRequests
 //						.requestMatchers(PathRequest.toH2Console()).permitAll()
 						.requestMatchers("/", "/login/**").permitAll()
-						.requestMatchers("/bbs/**", "/toRoot/v1/bbs/**").hasAnyAuthority(UserRole.USER,UserRole.MEMBERSHIP_USER,UserRole.ADMIN)
-						.requestMatchers("/admins/**", "/toRoot/v1/admins/**").hasAnyAuthority(UserRole.ADMIN)
+						.requestMatchers("/bbs/**", "/api/v1/bbs/**").hasAnyAuthority(UserRole.USER,UserRole.MEMBERSHIP_USER,UserRole.ADMIN)
+						.requestMatchers("/admins/**", "/api/v1/admins/**").hasAnyAuthority(UserRole.ADMIN)
 						.anyRequest().authenticated()
 		)
 //		.exceptionHandling((exceptionConfig) ->
@@ -98,7 +98,7 @@ import com.sleepyjelly.pb.common.user.UserRole;
 	SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
 	    SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
 	    sessionFactory.setDataSource(dataSource);
-	    sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:mappers/*.xml"));
+	    sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:/mappers/**/*Mapper.xml"));
 	    return sessionFactory.getObject();
 	}
     

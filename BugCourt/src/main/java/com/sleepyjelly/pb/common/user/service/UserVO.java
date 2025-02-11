@@ -6,28 +6,43 @@ import org.springframework.security.core.GrantedAuthority;
 
 import com.sleepyjelly.pb.common.base.web.BaseVO;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * UserVO 
+ * 
+ * @TODO jelly
+ * add more validation like @Pattern
+ */
 @Builder
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserVO extends BaseVO{
-
+	
+    @NotBlank(message = "Username(user-id) can't be empty.")
 	private String userId;
 
+    @NotBlank(message = "Password can't be empty.")
+//    @Pattern(regexp = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,16}", message = "password have to be 8~16 length , can't use special characters")
     private String userPw;
-    
+   
+    @NotBlank(message = "Your name can't be empty.")
+//    @Pattern(regexp = "^[a-zA-Za-z0-9-_]{5,13}$", message = "Your name Can't use special characters, have to be 5~13 length.")
     private String userNm;
     
-    private String userDc;
-    
+    @NotBlank(message = "Your Email can't be empty.")
+//  @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,6}$")
     private String userEmail;
+    
+    private String userDc;
     
     private String userPhone;
     
