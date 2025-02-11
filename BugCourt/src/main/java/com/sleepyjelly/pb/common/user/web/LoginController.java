@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 public class LoginController extends BaseController{
 
 	@Autowired
-    private PasswordEncoder passwordEncoder;
+    private PasswordEncoder pwEncoder;
 	 
 	@Autowired
 	private UserService userService;
@@ -82,6 +82,14 @@ public class LoginController extends BaseController{
 		
 		log.info("registerProcess");
 		log.info("userVO-->{}",userVO);
+		
+		
+		userVO.setUserPw(pwEncoder.encode(userVO.getUserPw()));
+		
+		log.info("userVO-->{}",userVO);
+
+		
+		
 
 		return ResponseEntity.status(HttpStatus.FOUND)
 	        .header("Location", "http://localhost:5173/login/login-page")

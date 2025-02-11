@@ -31,13 +31,12 @@ const PageRegister = () => {
   };  
 
   
-  const submitHandler = (e : any) => {
-    //1. 페이지 리로드 방지
-    e.preventDefault();
-  }
+  // const submitHandler = (e : any) => {
+  //   e.preventDefault();
+  // }
   const signUp = () => {
     console.log("Requesting sign-up..."); // Debug log
-    alert("123123123");
+    alert("Requesting");
 
     apiRequester
       .post("/login/registerProcess", {
@@ -48,7 +47,7 @@ const PageRegister = () => {
       })
       .then((response) => {
         console.log("Response received:", response); // Debug log
-        alert("aaa21q3123123a");
+        alert("Response received");
         goToLogin();
       })
       .catch((error) => {

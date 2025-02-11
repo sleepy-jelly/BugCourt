@@ -23,11 +23,12 @@ import com.sleepyjelly.pb.common.user.UserRole;
 	@EnableWebSecurity
 	public class SecurityConfig {	
 
-    @Bean
-    BCryptPasswordEncoder encoder() {
-        return new BCryptPasswordEncoder();
-    }
-
+	@Bean
+	PasswordEncoder pwEncoder() {
+		return new BCryptPasswordEncoder(10);
+	}
+		  
+		  
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     	http
@@ -74,10 +75,7 @@ import com.sleepyjelly.pb.common.user.UserRole;
 //    }
 //    
     
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(10);
-    }
+  
     
     
     @Bean

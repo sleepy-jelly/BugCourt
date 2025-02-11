@@ -7,12 +7,12 @@ import org.springframework.security.core.GrantedAuthority;
 import com.sleepyjelly.pb.common.base.web.BaseVO;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * UserVO 
@@ -23,6 +23,7 @@ import lombok.Setter;
 @Builder
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserVO extends BaseVO{
