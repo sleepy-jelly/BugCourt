@@ -24,7 +24,7 @@ const PageError404 = () => {
           <section className="section error-404 min-vh-100 d-flex flex-column align-items-center justify-content-center">
             <h1>404</h1>
             <h2>The page you are looking for doesn't exist.</h2>
-            <a className="btn" href="/toRoot/login/viewLogin">
+            <a className="btn" href="/api/login/viewLogin">
               Back to home
             </a>
             <img

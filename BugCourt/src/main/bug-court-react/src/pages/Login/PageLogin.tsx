@@ -88,7 +88,7 @@ const Login = () => {
                         <div className="col-12">
                           <p className="small mb-0">
                             Don't have account?{" "}
-                            <a href="/toRoot/login/viewPageRegister">Create an account</a>
+                            <a href="/api/login/viewPageRegister">Create an account</a>
                           </p>
                         </div>
                       </form>

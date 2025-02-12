@@ -4,9 +4,9 @@ import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
-import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -23,11 +23,11 @@ import com.sleepyjelly.pb.common.user.UserRole;
 	@EnableWebSecurity
 	public class SecurityConfig {	
 
-    @Bean
-    BCryptPasswordEncoder encoder() {
-        return new BCryptPasswordEncoder();
-    }
-
+	@Bean
+	PasswordEncoder pwEncoder() {
+		return new BCryptPasswordEncoder(10);
+	}
+		  
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     	http
@@ -43,8 +43,8 @@ import com.sleepyjelly.pb.common.user.UserRole;
 				authorizeRequests
 //						.requestMatchers(PathRequest.toH2Console()).permitAll()
 						.requestMatchers("/", "/login/**").permitAll()
-						.requestMatchers("/bbs/**", "/toRoot/v1/bbs/**").hasAnyAuthority(UserRole.USER,UserRole.MEMBERSHIP_USER,UserRole.ADMIN)
-						.requestMatchers("/admins/**", "/toRoot/v1/admins/**").hasAnyAuthority(UserRole.ADMIN)
+						.requestMatchers("/bbs/**", "/api/v1/bbs/**").hasAnyAuthority(UserRole.USER,UserRole.MEMBERSHIP_USER,UserRole.ADMIN)
+						.requestMatchers("/admins/**", "/api/v1/admins/**").hasAnyAuthority(UserRole.ADMIN)
 						.anyRequest().authenticated()
 		)
 //		.exceptionHandling((exceptionConfig) ->
@@ -74,10 +74,7 @@ import com.sleepyjelly.pb.common.user.UserRole;
 //    }
 //    
     
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(10);
-    }
+  
     
     
     @Bean
@@ -98,7 +95,16 @@ import com.sleepyjelly.pb.common.user.UserRole;
 	SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
 	    SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
 	    sessionFactory.setDataSource(dataSource);
-	    sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:mappers/*.xml"));
+	    sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:/mappers/**/*Mapper.xml"));
+	    sessionFactory.setConfigLocation(new PathMatchingResourcePatternResolver().getResource("classpath:mybatisConfig.xml")); 
+        
+
+	    
+//	    if  mybatis.configuration.map-underscore-to-camel-case=true not working try this ...
+//	    org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
+//	    configuration.setMapUnderscoreToCamelCase(true);
+//	    sessionFactory.setConfiguration(configuration);
+	    
 	    return sessionFactory.getObject();
 	}
     
