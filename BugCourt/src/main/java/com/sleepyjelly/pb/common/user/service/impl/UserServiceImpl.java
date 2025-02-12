@@ -1,5 +1,7 @@
 package com.sleepyjelly.pb.common.user.service.impl;
 
+import java.sql.SQLException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,25 +25,34 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public UserVO selectUserByUserId(UserVO userVO)throws Exception {
 		UserVO findedUserVO = userMapper.selectUserByUserId(userVO);
+		log.info("selectUserByUserId ->{}",findedUserVO);
 		return findedUserVO;
 	}
 
 
 	@Override
 	public void insertUserByRegiste(UserVO userVO) throws Exception {
-		UserVO tmpUserVO = userMapper.selectUserByUserId(userVO);
+		UserVO tmpUserVO = new UserVO();
+		
+		tmpUserVO.setUserId(userVO.getUserId());
+				
+		tmpUserVO =	selectUserByUserId(userVO);	// check user
 
-		if(tmpUserVO.getUserId().equals(userVO.getUserId())) {
+		if(tmpUserVO != null && tmpUserVO.getUserId().equals(userVO.getUserId())) {
 			throw new RuntimeException("userId(username) is taken");
 		}
-		
+		 
 		passwordEncoder.encode(userVO.getUserPw());
-		
-		
-		userMapper.selectUserByUserId(userVO);
+		log.info("tmpUserVO =>{}",tmpUserVO);
+		log.info("insertUserByRegiste =>{}",userVO);
 
 		 
-		
+		int commited = userMapper.insertUserByRegiste(userVO);
+
+		if(commited==0) {
+			throw new SQLException();
+		}
+		 
 		
 		
 	}

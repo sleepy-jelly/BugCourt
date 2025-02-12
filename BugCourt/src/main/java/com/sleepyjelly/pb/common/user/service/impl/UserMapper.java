@@ -10,7 +10,7 @@ public interface UserMapper {
 
 	public UserVO selectUserByUserId(UserVO userVO);
 	
-	public UserVO insertUserByRegiste(UserVO userVO);
+	public int insertUserByRegiste(UserVO userVO);
 	
 		
 	

@@ -81,10 +81,17 @@ public class LoginController extends BaseController{
 	    }
 		
 		log.info("registerProcess");
-		log.info("userVO-->{}",userVO);
+//		log.info("userVO-->{}",userVO);
 		
 		
-		userVO.setUserPw(pwEncoder.encode(userVO.getUserPw()));
+		try {
+			userService.insertUserByRegiste(userVO);
+		} catch (Exception e) {
+			e.printStackTrace();
+	 		return ResponseEntity.status(500)
+	 				.header("Location", "http://localhost:5173/login/login-page") .build();
+		}
+		
 		
 		log.info("userVO-->{}",userVO);
 
