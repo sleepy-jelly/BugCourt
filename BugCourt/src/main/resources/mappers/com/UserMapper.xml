@@ -14,4 +14,30 @@
 		WHERE
 			USER_ID = #{userId}	
 	</select>
+	
+	<insert id="insertUserByRegiste"
+			parameterType="com.sleepyjelly.pb.common.user.service.UserVO">
+		INSERT INTO TN_USER
+			(
+			 USER_ID, 
+			 USER_PW,
+			 USER_NM, 
+			 USER_EMAIL, 
+			 FRST_REGR_ID, 
+			 FRST_RER_DT,
+			 LAST_CHGR_ID,
+			 LAST_CHG_DT
+			 )
+		VALUES(
+			#{userId}, 
+			#{userPw}, 
+			#{userNm},
+			#{userEmail},
+			#{userId},
+			SySDate(), 
+			#{userId},
+			 SySDate() 
+			)
+	</insert>
+	
 </mapper>
