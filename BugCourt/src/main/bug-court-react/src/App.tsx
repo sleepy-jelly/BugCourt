@@ -2,8 +2,7 @@ import { BrowserRouter as BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import PageLogin from './pages/Login/PageLogin.tsx';
 import PageRegister from './pages/Login/PageRegister.tsx';
-import UserDashBoard from './pages/board/DashBoard/userDashBoard.tsx';
-
+import UserDashBoard from './pages/board/DashBoard/UserDashBoard.tsx';
 import PageError404 from './pages/Common/PageError404.tsx';
 
 
