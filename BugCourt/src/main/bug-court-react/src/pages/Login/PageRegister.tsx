@@ -1,5 +1,6 @@
 import Layout from '../../components/layouts/Layout'
 import apiRequester from '../../Api/AxiosInstance';
+
 import { useNavigate } from "react-router-dom";
 
 import { useState } from "react";
@@ -11,12 +12,7 @@ const PageRegister = () => {
   const [inputUserPw, setUserPw] = useState("");
   const [inputUserEmail, setUserEmail] = useState("");
 
-  // 메시지 저장
-  // const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
-
-  // const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
-
-  // 값 추적
+  // handling Input
   const handleInputUserId = (e : React.ChangeEvent<HTMLInputElement>) => {
     setUserId(e.target.value);
   };
@@ -208,7 +204,7 @@ const PageRegister = () => {
                           <div className="col-12">
                             <p className="small mb-0">
                               Already have an account?{" "}
-                              <a href="pages-login.html">Log in</a>
+                              <a href="/login/login-page">Log in</a>
                             </p>
                           </div>
                         </form>
