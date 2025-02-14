@@ -32,48 +32,49 @@ import com.sleepyjelly.pb.common.user.UserRole;
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     	http
 		.csrf((csrfConfig) ->
-				csrfConfig.disable()
+			csrfConfig.disable()
 		) 
 		.headers((headerConfig) ->
-				headerConfig.frameOptions(frameOptionsConfig ->
-						frameOptionsConfig.disable()
-				)
+			headerConfig.frameOptions(frameOptionsConfig ->
+				frameOptionsConfig.disable()
+			)
 		)
 		.authorizeHttpRequests((authorizeRequests) ->
-				authorizeRequests
-//						.requestMatchers(PathRequest.toH2Console()).permitAll()
-						.requestMatchers("/", "/login/**").permitAll()
-						.requestMatchers("/bbs/**", "/api/v1/bbs/**").hasAnyAuthority(UserRole.USER,UserRole.MEMBERSHIP_USER,UserRole.ADMIN)
-						.requestMatchers("/admins/**", "/api/v1/admins/**").hasAnyAuthority(UserRole.ADMIN)
-						.anyRequest().authenticated()
+			authorizeRequests
+//				.requestMatchers(PathRequest.toH2Console()).permitAll()
+				.requestMatchers("/", "/login/**").permitAll()
+				.requestMatchers("/bbs/**", "/api/v1/bbs/**").hasAnyAuthority(UserRole.USER,UserRole.MEMBERSHIP_USER,UserRole.ADMIN)
+				.requestMatchers("/admins/**", "/api/v1/admins/**").hasAnyAuthority(UserRole.ADMIN)
+				.anyRequest().authenticated()
 		)
 //		.exceptionHandling((exceptionConfig) ->
 //				exceptionConfig.authenticationEntryPoint(unauthorizedEntryPoint).accessDeniedHandler(accessDeniedHandler)
 //		) 
 		.formLogin((formLogin) ->
-				formLogin
-						.loginPage("/login/viewLogin") 
-						.usernameParameter("username") 
-						.passwordParameter("password") 
-						.loginProcessingUrl("/login/loginProcess") 
-						.defaultSuccessUrl("/", true)
+			formLogin
+				.loginPage("/login/viewLogin") 
+				.loginProcessingUrl("/login/loginProcess") 
+				.usernameParameter("userId") 
+				.passwordParameter("userPw") 
+				.defaultSuccessUrl("/login/loginSuccessful", true)
 		)
 		.logout((logoutConfig) ->
-				logoutConfig.logoutSuccessUrl("/")
+			logoutConfig
+				.logoutUrl("/logout")
+				.logoutSuccessUrl("/")
 		);
 //		.userDetailsService(UserService); 
-
 		return http.build();
     }
 //
-//    
+    
 //    @Bean
 //    UserDetailsService userDetailsService() {
 //    	InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
 //		return manager;
 //    }
 //    
-    
+//    
   
     
     

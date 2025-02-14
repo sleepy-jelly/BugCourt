@@ -1,7 +1,47 @@
 import Layout from '../../components/layouts/Layout'
-
+import apiRequester from '../../Api/AxiosInstance';
+import { useState } from "react";
 
 const Login = () => {
+
+  const [inputUserId, setUserId] = useState("");
+  const [inputUserPw, setUserPw] = useState("");
+
+  // handling Input
+  const handleInputUserId = (e : React.ChangeEvent<HTMLInputElement>) => {
+    setUserId(e.target.value);
+  };
+  const handleInputUserPw = (e : React.ChangeEvent<HTMLInputElement>) => {
+    setUserPw(e.target.value);
+  };  
+
+
+  const params = new URLSearchParams();
+  params.append("userId", inputUserId);
+  params.append("userPw", inputUserPw);
+
+
+  const login = () => {
+    console.log("Requesting login..."); // Debug log
+    alert("Requesting");
+    console.log("Requesting ..."+ inputUserId+inputUserPw); // Debug log
+
+    apiRequester
+      .post("/login/loginProcess", params, {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        withCredentials: true, // Ensures cookies are sent if needed
+      })
+      .then((response) => {
+        console.log("Response received:", response); // Debug log
+        alert("Response received");
+      })
+      .catch((error) => {
+        console.error("Error during login:", error);
+      });
+  };
+
   return (
     <Layout>
      <>
@@ -32,7 +72,7 @@ const Login = () => {
                       </div>
                       <form className="row g-3 needs-validation" noValidate>
                         <div className="col-12">
-                          <label htmlFor="yourUserId" className="form-label">
+                          <label htmlFor="userId" className="form-label">
                           userId
                           </label>
                           <div className="input-group has-validation">
@@ -40,11 +80,13 @@ const Login = () => {
                               @
                             </span>
                             <input
-                              type="text"
-                              name="userId"
-                              className="form-control"
-                              id="YourUser-ID"
-                              required
+                               className="form-control"
+                               type="text"
+                               name="userId"
+                               id="userId"
+                               value={inputUserId}
+                               onChange={handleInputUserId}
+                               required
                             />
                             <div className="invalid-feedback">
                               Please enter your User-ID.
@@ -56,11 +98,13 @@ const Login = () => {
                             Password
                           </label>
                           <input
-                            type="password"
-                            name="password"
-                            className="form-control"
-                            id="yourPassword"
-                            required
+                             className="form-control"
+                             type="password"
+                             name="userPw"
+                             id="userPw"
+                             value={inputUserPw}
+                             onChange={handleInputUserPw}
+                             required
                           />
                           <div className="invalid-feedback">
                             Please enter your password!
@@ -81,7 +125,7 @@ const Login = () => {
                           </div>
                         </div>
                         <div className="col-12">
-                          <button className="btn btn-primary w-100" type="submit">
+                          <button className="btn btn-primary w-100" type="button" onClick={login}>
                             Login
                           </button>
                         </div>

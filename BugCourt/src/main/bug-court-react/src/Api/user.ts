@@ -1,18 +1,26 @@
-import AxiosInstance from 'axios';
+import apiRequester from './AxiosInstance';
 
 interface User {
-  email: string;
-  nickName: string;
-  password: string;
+  userId: string;
+  userPw: string;
+  userNm: string;
+  userEmail: string;
 }
 
-// 회원가입
-export const register = async ({ email, nickName, password }: User) => {
-  const result = await AxiosInstance.post("/users/register", {
-    email,
-    nickName,
-    password,
-  });
 
-  return result;
-};
+
+  
+
+  // signUp
+export const signUp = async ({ userId, userPw, userNm, userEmail }: User) => {
+    const result = await apiRequester.post("/login/registerProcess", {
+        userId,
+        userPw,
+        userNm,
+        userEmail,
+    });
+  
+    return result;
+  };
+  
+  

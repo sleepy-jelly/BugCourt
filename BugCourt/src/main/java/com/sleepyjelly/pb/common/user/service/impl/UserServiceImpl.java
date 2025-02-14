@@ -43,6 +43,7 @@ public class UserServiceImpl implements UserService{
 		}
 		 
 		passwordEncoder.encode(userVO.getUserPw());
+		
 		log.info("tmpUserVO =>{}",tmpUserVO);
 		log.info("insertUserByRegiste =>{}",userVO);
 
