@@ -3,6 +3,7 @@ package com.sleepyjelly.pb.common.user.service;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import com.sleepyjelly.pb.common.base.web.BaseVO;
 
@@ -62,7 +63,7 @@ public class UserVO extends BaseVO{
     private String user2FactorKey;
     
     // Represents an authority granted to an Authentication object. 
-    private List<GrantedAuthority> securityAuthList;
+    private List<SimpleGrantedAuthority> securityAuthList;
     
     
 

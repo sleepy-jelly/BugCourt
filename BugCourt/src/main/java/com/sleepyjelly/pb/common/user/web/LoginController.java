@@ -1,10 +1,14 @@
 package com.sleepyjelly.pb.common.user.web;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -45,14 +49,44 @@ public class LoginController extends BaseController{
 	
 	
 	@PostMapping("/loginProcess")
-	public ResponseEntity<Void> loginProcess(ModelAndView mav) {
+	public ResponseEntity<Void> loginProcess(@RequestBody UserVO userVO, ModelAndView mav) throws Exception {
 		log.info("loginProcess");
+		log.info("userVO");
+
+		
+		UserVO compareUserVO =  userService.selectUserByUserId(userVO);
+		
+		boolean isMatches = pwEncoder.matches(userVO.getUserPw(), compareUserVO.getUserPw());
 		
 		
+//		Authentication authentication = SecurityContextHolder.getContext().getJAJAuthentication();
+//        String email = authentication.getName();
+//        String authorities = authentication.getAuthorities().toString();
+//
+//        log.info("로그인한 유저 이메일:" + email);
+//        log.info("유저 권한:" + authentication.getAuthorities());
+//
+//        Map<String, String> userInfo = new HashMap<>();
+//        userInfo.put("email", email);
+//        userInfo.put("authorities", authorities);
+//        
+        
 		
-		return ResponseEntity.status(HttpStatus.FOUND)
-                .header("Location", "http://localhost:5173/bbs/algoBbs")
+		
+		if(isMatches) {
+				
+			return ResponseEntity.status(HttpStatus.ACCEPTED)
+	                .header("Location", "http://localhost:5173/bbs/algoBbs")
+	                .build();
+				
+		}
+		
+		
+		return ResponseEntity.status(500)
+                .header("Location", "http://localhost:5173/login/login-page")
                 .build();
+		
+		
 	}
 	
 	
@@ -81,7 +115,6 @@ public class LoginController extends BaseController{
 	    }
 		
 		log.info("registerProcess");
-//		log.info("userVO-->{}",userVO);
 		
 		
 		try {
@@ -89,14 +122,8 @@ public class LoginController extends BaseController{
 		} catch (Exception e) {
 			e.printStackTrace();
 	 		return ResponseEntity.status(500)
-	 				.header("Location", "http://localhost:5173/login/login-page") .build();
+	 				.header("Location", "http://localhost:5173/login/login-page").build();
 		}
-		
-		
-		log.info("userVO-->{}",userVO);
-
-		
-		
 
 		return ResponseEntity.status(HttpStatus.FOUND)
 	        .header("Location", "http://localhost:5173/login/login-page")
