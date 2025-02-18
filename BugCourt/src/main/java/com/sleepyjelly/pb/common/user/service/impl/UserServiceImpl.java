@@ -1,8 +1,7 @@
 package com.sleepyjelly.pb.common.user.service.impl;
 
-import java.sql.SQLException;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,14 +31,14 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public void insertUserByRegiste(UserVO userVO) throws Exception {
+		
 		UserVO tmpUserVO = new UserVO();
 		
 		tmpUserVO.setUserId(userVO.getUserId());
-				
-		tmpUserVO =	selectUserByUserId(userVO);	// check user
+		tmpUserVO =	selectUserByUserId(userVO);	// select userVO for check if user name Taken
 
 		if(tmpUserVO != null && tmpUserVO.getUserId().equals(userVO.getUserId())) {
-			throw new RuntimeException("userId(username) is taken");
+			throw new DataIntegrityViolationException("userId(username) is taken");
 		}
 		 
 		passwordEncoder.encode(userVO.getUserPw());
@@ -47,11 +46,10 @@ public class UserServiceImpl implements UserService{
 		log.info("tmpUserVO =>{}",tmpUserVO);
 		log.info("insertUserByRegiste =>{}",userVO);
 
-		 
 		int commited = userMapper.insertUserByRegiste(userVO);
 
 		if(commited==0) {
-			throw new SQLException();
+			throw new DataIntegrityViolationException("userId(username) is taken");
 		}
 		 
 		

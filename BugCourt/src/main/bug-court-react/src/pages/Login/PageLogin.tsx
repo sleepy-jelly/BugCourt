@@ -1,6 +1,7 @@
 import Layout from '../../components/layouts/Layout'
 import apiRequester from '../../Api/AxiosInstance';
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
 
@@ -33,14 +34,26 @@ const Login = () => {
         },
         withCredentials: true, // Ensures cookies are sent if needed
       })
-      .then((response) => {
+      .then((response ) => {
+        
         console.log("Response received:", response); // Debug log
         alert("Response received");
+
+        goToBbs();
+
+
+
       })
       .catch((error) => {
         console.error("Error during login:", error);
       });
   };
+  const navigate = useNavigate();
+  
+  const goToBbs = () => {
+    navigate("/dash-board");
+  };
+
 
   return (
     <Layout>
