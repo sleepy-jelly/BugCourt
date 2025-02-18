@@ -3,21 +3,24 @@ package com.sleepyjelly.pb.common.user.web;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.sleepyjelly.pb.common.base.web.BaseController;
 import com.sleepyjelly.pb.common.user.service.UserService;
@@ -33,9 +36,6 @@ import lombok.extern.slf4j.Slf4j;
 public class LoginController extends BaseController{
 
 	@Autowired
-    private PasswordEncoder pwEncoder;
-	 
-	@Autowired
 	private UserService userService;
 	
 	 
@@ -48,61 +48,42 @@ public class LoginController extends BaseController{
 	}
 	
 	
-	@PostMapping("/loginProcess")
-	public ResponseEntity<Void> loginProcess(@RequestBody UserVO userVO, ModelAndView mav) throws Exception {
-		log.info("loginProcess");
-		log.info("userVO");
-
+	@RequestMapping(value="/loginSuccessful", method = {RequestMethod.GET, RequestMethod.POST})
+	public ResponseEntity<Map<String, String>>  loginSuccessful() throws Exception {
+		log.info("loginSuccessful");
 		
-		UserVO compareUserVO =  userService.selectUserByUserId(userVO);
+		Map<String, String> resultMap = new HashMap<String, String>();
 		
-		boolean isMatches = pwEncoder.matches(userVO.getUserPw(), compareUserVO.getUserPw());
+		resultMap.put("ReturnMessage", "Sucessful");
 		
 		
-//		Authentication authentication = SecurityContextHolder.getContext().getJAJAuthentication();
-//        String email = authentication.getName();
-//        String authorities = authentication.getAuthorities().toString();
+		
+		resultMap.put("Redirect", "/login-page");
+		
+		
+		
+		
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		log.info("loginSuccessful --> username ->{}",username);
+		
 //
-//        log.info("로그인한 유저 이메일:" + email);
-//        log.info("유저 권한:" + authentication.getAuthorities());
-//
-//        Map<String, String> userInfo = new HashMap<>();
-//        userInfo.put("email", email);
-//        userInfo.put("authorities", authorities);
-//        
-        
-		
-		
-		if(isMatches) {
-				
-			return ResponseEntity.status(HttpStatus.ACCEPTED)
-	                .header("Location", "http://localhost:5173/bbs/algoBbs")
-	                .build();
-				
-		}
-		
-		
-		return ResponseEntity.status(500)
-                .header("Location", "http://localhost:5173/login/login-page")
-                .build();
-		
-		
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.header("Origin", "http://localhost:5173")
+				.body((resultMap));
+			
 	}
 	
-	
-	
-	
-	
+
 	@RequestMapping(value="/viewPageRegister", method = {RequestMethod.GET, RequestMethod.POST})
 	public ResponseEntity<Void> viewPageRegister(ModelAndView mav) throws Exception {
 		log.info("viewPageRegister");
 		
 
-		return ResponseEntity.status(HttpStatus.FOUND)
+		return ResponseEntity.status(HttpStatus.OK)
                 .header("Location", "http://localhost:5173/login/register-page")
                 .build();
 	}
-	
 	
 	
 	@PostMapping(value="/registerProcess")
@@ -122,7 +103,8 @@ public class LoginController extends BaseController{
 		} catch (Exception e) {
 			e.printStackTrace();
 	 		return ResponseEntity.status(500)
-	 				.header("Location", "http://localhost:5173/login/login-page").build();
+	 				.header("Location", "http://localhost:5173/login/login-page")
+	 				.build();
 		}
 
 		return ResponseEntity.status(HttpStatus.FOUND)
@@ -131,10 +113,30 @@ public class LoginController extends BaseController{
 
 	}
 	
-	
+	 /**
+     * check user if Authenticated
+     * 
+     * @return Authenticated(TRUE / FALSE)
+     */
+    public static Boolean isAuthenticated() {
+        SecurityContext context = SecurityContextHolder.getContext();
+        Authentication authentication = context.getAuthentication();
 
-	
+        if (Objects.isNull(authentication)) {
+        	log.debug("## authentication object is null!!");
+            return Boolean.FALSE;
+        }
 
+        String username = authentication.getName();
+        if (username.equals("anonymousUser")) {		
+        	log.debug("## username is {}", username);
+            return Boolean.FALSE;
+        }
+
+        Object principal = authentication.getPrincipal();
+
+        return (Boolean.valueOf(!Objects.isNull(principal)));
+    }
 	
 	
 //	
@@ -148,8 +150,6 @@ public class LoginController extends BaseController{
 //	log.info("userVO"+userVO);
 //
 //	log.info("selectUserByUserId");
-	
-	
 	
 	
 }
