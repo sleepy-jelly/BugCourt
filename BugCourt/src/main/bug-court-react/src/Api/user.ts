@@ -9,7 +9,6 @@ interface User {
 
 
 
-  
 
   // signUp
 export const signUp = async ({ userId, userPw, userNm, userEmail }: User) => {

@@ -1,12 +1,13 @@
 package com.sleepyjelly.pb.common.security;
 
+import java.util.List;
+
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,12 +18,30 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import static org.springframework.http.HttpHeaders.ACCEPT;
+import static org.springframework.http.HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS;
+import static org.springframework.http.HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN;
+import static org.springframework.http.HttpHeaders.ACCESS_CONTROL_REQUEST_HEADERS;
+import static org.springframework.http.HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
+import static org.springframework.http.HttpHeaders.ORIGIN;
+import static org.springframework.http.HttpMethod.DELETE;
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.OPTIONS;
+import static org.springframework.http.HttpMethod.PATCH;
+import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.PUT;
+
 import com.sleepyjelly.pb.common.user.UserRole;
-	 
+
 	@Configuration
 	@EnableWebSecurity
 	public class SecurityConfig {	
 
+		
+	private static final String X_REQUESTED_WITH ="X-Requested-With";
+		
 	@Bean
 	PasswordEncoder pwEncoder() {
 		return new BCryptPasswordEncoder(10);
@@ -43,8 +62,9 @@ import com.sleepyjelly.pb.common.user.UserRole;
 			authorizeRequests
 //				.requestMatchers(PathRequest.toH2Console()).permitAll()
 				.requestMatchers("/", "/login/**").permitAll()
-				.requestMatchers("/bbs/**", "/api/v1/bbs/**").hasAnyAuthority(UserRole.USER,UserRole.MEMBERSHIP_USER,UserRole.ADMIN)
-				.requestMatchers("/admins/**", "/api/v1/admins/**").hasAnyAuthority(UserRole.ADMIN)
+				.requestMatchers("/dash-board/**", "/api/dash-board/**").hasAnyAuthority(UserRole.USER,UserRole.MEMBERSHIP_USER,UserRole.ADMIN)
+				.requestMatchers("/bbs/**", "/api/bbs/**").hasAnyAuthority(UserRole.USER,UserRole.MEMBERSHIP_USER,UserRole.ADMIN)
+				.requestMatchers("/admins/**", "/api/admins/**").hasAnyAuthority(UserRole.ADMIN)
 				.anyRequest().authenticated()
 		)
 //		.exceptionHandling((exceptionConfig) ->
@@ -81,15 +101,22 @@ import com.sleepyjelly.pb.common.user.UserRole;
     @Bean
     CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
+        UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
+
         config.setAllowCredentials(true);
         config.addAllowedOrigin("http://localhost:5173");//  bug-court-react@0.0.0 dev 	 //	> vite
-        config.addAllowedHeader("*");
+        
+        
+        config.setAllowedHeaders(List.of(ORIGIN, ACCESS_CONTROL_ALLOW_ORIGIN, CONTENT_TYPE, ACCEPT, AUTHORIZATION, X_REQUESTED_WITH, ACCESS_CONTROL_REQUEST_METHOD, ACCESS_CONTROL_REQUEST_HEADERS, ACCESS_CONTROL_ALLOW_CREDENTIALS));
+        config.setExposedHeaders(List.of(ORIGIN, ACCESS_CONTROL_ALLOW_ORIGIN, CONTENT_TYPE, ACCEPT, AUTHORIZATION, X_REQUESTED_WITH, ACCESS_CONTROL_REQUEST_METHOD, ACCESS_CONTROL_REQUEST_HEADERS, ACCESS_CONTROL_ALLOW_CREDENTIALS));
+//        config.setAllowedMethods(List.of(GET.name(), POST.name(), PUT.name(), PATCH.name(), DELETE.name(), OPTIONS.name()));
+        
         config.addAllowedMethod("*");
+      
+      	urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", config);
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
-
-        return new CorsFilter(source);
+ 
+        return new CorsFilter(urlBasedCorsConfigurationSource);
     } 
     
     @Bean
@@ -99,9 +126,6 @@ import com.sleepyjelly.pb.common.user.UserRole;
 	    sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:/mappers/**/*Mapper.xml"));
 	    sessionFactory.setConfigLocation(new PathMatchingResourcePatternResolver().getResource("classpath:mybatisConfig.xml")); 
         
-
-	    
-//	    if  mybatis.configuration.map-underscore-to-camel-case=true not working try this ...
 //	    org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
 //	    configuration.setMapUnderscoreToCamelCase(true);
 //	    sessionFactory.setConfiguration(configuration);
