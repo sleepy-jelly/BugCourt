@@ -53,7 +53,7 @@ const PageRegister = () => {
   const navigate = useNavigate();
   
   const goToLogin = () => {
-    navigate("/login");
+    navigate("/login/login-page");
   };
 
 
