@@ -3,8 +3,6 @@ package com.sleepyjelly.pb.common.user.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.groovy.runtime.ObjectUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,15 +12,15 @@ import org.springframework.util.ObjectUtils;
 
 import com.sleepyjelly.pb.common.user.UserRole;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService{
+@RequiredArgsConstructor
+public class UserDetailsServiceImpl implements UserDetailsService {
 	
-	@Autowired
-	UserService userService;
-	
+	private final UserService userService;
 
 	@Override
 	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
@@ -43,7 +41,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 			throw new UsernameNotFoundException("userId is not found -> "+userId);	
 		}
 		
-		log.info("userVO => userVO => {}",userVO);
+		log.info("userVO2 => userVO2 => {}",userVO);
 		
 		if(ObjectUtils.isEmpty(userVO.getSecurityAuthList())) {
 			List<SimpleGrantedAuthority> basicAuthorityList = new ArrayList<SimpleGrantedAuthority>();
@@ -51,7 +49,8 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 			basicAuthorityList.add(basicAuth);
 			userVO.setSecurityAuthList(basicAuthorityList);
 		}
-		
+		log.info("userVO3 => userVO3 => {}",userVO);
+
 		return new org.springframework.security.core.userdetails.User(
 			 userVO.getUserId(),
 			 userVO.getUserPw(),

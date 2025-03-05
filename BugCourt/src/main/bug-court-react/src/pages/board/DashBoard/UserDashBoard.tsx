@@ -1,11 +1,13 @@
-import Layout from '../../../components/layouts/Layout'
+import React from 'react';
+import Layout from '../../../components/layouts/Layout';
+import Sidebar from '../../../components/layouts/Sidebar';
 // import apiRequester from '../../../Api/AxiosInstance';
 
 // import { useNavigate } from "react-routerUserDashBoard-dom";
 
 // import { useState } from "react";
 
-const UserDashBoard = () => {
+const UserDashBoard: React.FC = () => {
   return (
     <Layout>
       <>
@@ -287,71 +289,7 @@ const UserDashBoard = () => {
         </header>
         {/* End Header */}
         {/* ======= Sidebar ======= */}
-        <aside id="sidebar" className="sidebar">
-          <ul className="sidebar-nav" id="sidebar-nav">
-            <li className="nav-item">
-              <a className="nav-link " href="index.html">
-                <i className="bi bi-grid" />
-                <span>Dashboard</span>
-              </a>
-            </li>
-            {/* End Dashboard Nav */}
-            {/* Start Tables Nav */}
-            <li className="nav-item">
-              <a
-                className="nav-link collapsed"
-                data-bs-target="#tables-nav"
-                data-bs-toggle="collapse"
-                href="#"
-              >
-                <i className="bi bi-layout-text-window-reverse" />
-                <span>Tables</span>
-                <i className="bi bi-chevron-down ms-auto" />
-              </a>
-              <ul
-                id="tables-nav"
-                className="nav-content collapse "
-                data-bs-parent="#sidebar-nav"
-              >
-                <li>
-                  <a href="tables-general.html">
-                    <i className="bi bi-circle" />
-                    <span>General Tables</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="tables-data.html">
-                    <i className="bi bi-circle" />
-                    <span>Data Tables</span>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            {/* End Tables Nav */}
-            <li className="nav-heading">Pages</li>
-            <li className="nav-item">
-              <a className="nav-link collapsed" href="users-profile.html">
-                <i className="bi bi-person" />
-                <span>Profile</span>
-              </a>
-            </li>
-            {/* End Profile Page Nav */}
-            <li className="nav-item">
-              <a className="nav-link collapsed" href="pages-faq.html">
-                <i className="bi bi-question-circle" />
-                <span>F.A.Q</span>
-              </a>
-            </li>
-            {/* End F.A.Q Page Nav */}
-            <li className="nav-item">
-              <a className="nav-link collapsed" href="pages-contact.html">
-                <i className="bi bi-envelope" />
-                <span>Contact</span>
-              </a>
-            </li>
-            {/* End Contact Page Nav */}
-          </ul>
-        </aside>
+        <Sidebar />
         {/* End Sidebar*/}
         <main id="main" className="main">
           <div className="pagetitle">
@@ -372,12 +310,14 @@ const UserDashBoard = () => {
               <div className="col-lg-8">
                 <div className="row">
                   {/* Main Card */}
-                  <div className="col-xxl-12 col-md-12">
-                    <div className="card">
-                      <div className="card-body">
-                        <h5 className="card-title">Card with titles, buttons, and links</h5>
-                        <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <div className="post-item clearfix">
+                    <div className="col-xxl-12 col-md-12">
+                      <div className="card">
+                        <div className="card-body">
+                          <h5 className="card-title">BugCourt</h5>
+                          <h6 className="card-subtitle mb-2 text-muted">Vite+React+TS</h6>
+                          <p className="card-text">online compiler server designed to judge code.</p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -387,97 +327,6 @@ const UserDashBoard = () => {
               {/* Right side columns */}
               <div className="col-lg-4">
                 {/* Recent Activity */}
-                <div className="card">
-                  <div className="filter">
-                    <a className="icon" href="#" data-bs-toggle="dropdown">
-                      <i className="bi bi-three-dots" />
-                    </a>
-                    <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                      <li className="dropdown-header text-start">
-                        <h6>Filter</h6>
-                      </li>
-                      <li>
-                        <a className="dropdown-item" href="#">
-                          Today
-                        </a>
-                      </li>
-                      <li>
-                        <a className="dropdown-item" href="#">
-                          This Month
-                        </a>
-                      </li>
-                      <li>
-                        <a className="dropdown-item" href="#">
-                          This Year
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="card-body">
-                    <h5 className="card-title">
-                      Recent Activity <span>| Today</span>
-                    </h5>
-                    <div className="activity">
-                      <div className="activity-item d-flex">
-                        <div className="activite-label">32 min</div>
-                        <i className="bi bi-circle-fill activity-badge text-success align-self-start" />
-                        <div className="activity-content">
-                          Quia quae rerum{" "}
-                          <a href="#" className="fw-bold text-dark">
-                            explicabo officiis
-                          </a>{" "}
-                          beatae
-                        </div>
-                      </div>
-                      {/* End activity item*/}
-                      <div className="activity-item d-flex">
-                        <div className="activite-label">56 min</div>
-                        <i className="bi bi-circle-fill activity-badge text-danger align-self-start" />
-                        <div className="activity-content">
-                          Voluptatem blanditiis blanditiis eveniet
-                        </div>
-                      </div>
-                      {/* End activity item*/}
-                      <div className="activity-item d-flex">
-                        <div className="activite-label">2 hrs</div>
-                        <i className="bi bi-circle-fill activity-badge text-primary align-self-start" />
-                        <div className="activity-content">
-                          Voluptates corrupti molestias voluptatem
-                        </div>
-                      </div>
-                      {/* End activity item*/}
-                      <div className="activity-item d-flex">
-                        <div className="activite-label">1 day</div>
-                        <i className="bi bi-circle-fill activity-badge text-info align-self-start" />
-                        <div className="activity-content">
-                          Tempore autem saepe{" "}
-                          <a href="#" className="fw-bold text-dark">
-                            occaecati voluptatem
-                          </a>{" "}
-                          tempore
-                        </div>
-                      </div>
-                      {/* End activity item*/}
-                      <div className="activity-item d-flex">
-                        <div className="activite-label">2 days</div>
-                        <i className="bi bi-circle-fill activity-badge text-warning align-self-start" />
-                        <div className="activity-content">
-                          Est sit eum reiciendis exercitationem
-                        </div>
-                      </div>
-                      {/* End activity item*/}
-                      <div className="activity-item d-flex">
-                        <div className="activite-label">4 weeks</div>
-                        <i className="bi bi-circle-fill activity-badge text-muted align-self-start" />
-                        <div className="activity-content">
-                          Start Project Jan 20, 2025
-                        </div>
-                      </div>
-                      {/* End activity item*/}
-                    </div>
-                  </div>
-                </div>
-                {/* End Recent Activity */}
                 {/* News & Updates Traffic */}
                 <div className="card">
                   <div className="filter">

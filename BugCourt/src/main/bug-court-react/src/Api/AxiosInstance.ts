@@ -6,3 +6,4 @@ const apiRequester: AxiosInstance = axios.create({
 }); 
 
 export default apiRequester; //  default export 
+  
