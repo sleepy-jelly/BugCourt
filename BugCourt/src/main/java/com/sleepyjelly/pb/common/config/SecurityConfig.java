@@ -73,9 +73,6 @@ public class SecurityConfig {
     @Bean
     AuthenticationSuccessHandler authenticationSuccessHandler() {
         return (request, response, authentication) -> {
-        	
-        	log.info("help");
-        	
             String username = authentication.getName();
             
             log.info(" authenticationSuccessHandler username  -> ,  {}",username);
