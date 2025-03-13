@@ -6,11 +6,12 @@ const Layout = (props : {children : React.ReactNode})=>{
   const location = useLocation();
   const isLoginPage = location.pathname === '/login/login-page';
   const isRegisterPage = location.pathname === '/login/register-page';
-
+  const isDashboard = location.pathname === '/dash-board';
+  const isErrorPage = !isLoginPage && !isRegisterPage && !isDashboard;
 
   return(
     <>
-      {!isLoginPage && !isRegisterPage && <Header/>}
+      {!isLoginPage && !isRegisterPage && !isErrorPage && <Header/>}
       <main>{props.children}</main>
       <Footer/>
     </>

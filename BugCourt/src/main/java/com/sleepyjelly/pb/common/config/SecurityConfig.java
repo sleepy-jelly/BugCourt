@@ -53,6 +53,7 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
             .formLogin(formLogin -> formLogin
+            	.loginPage("http://localhost:5173/login/login-page")
                 .loginProcessingUrl("/login/loginProcess")
                 .usernameParameter("userId")
                 .passwordParameter("userPw") 
@@ -73,9 +74,6 @@ public class SecurityConfig {
     @Bean
     AuthenticationSuccessHandler authenticationSuccessHandler() {
         return (request, response, authentication) -> {
-        	
-        	log.info("help");
-        	
             String username = authentication.getName();
             
             log.info(" authenticationSuccessHandler username  -> ,  {}",username);

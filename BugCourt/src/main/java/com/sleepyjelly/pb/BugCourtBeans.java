@@ -50,9 +50,8 @@ public class BugCourtBeans {
 
         config.setAllowCredentials(true);
         config.addAllowedOrigin("http://localhost:5173");
-        
         // Explicitly list all allowed headers
-        config.setAllowedHeaders(List.of(
+        config.setAllowedHeaders(List.of( 
             ORIGIN,
             ACCESS_CONTROL_ALLOW_ORIGIN,
             CONTENT_TYPE,
@@ -69,7 +68,6 @@ public class BugCourtBeans {
             "Access-Control-Request-Method",
             "Access-Control-Request-Headers"
         ));
-        
         // Explicitly list all exposed headers
         config.setExposedHeaders(List.of(
             ORIGIN,
@@ -82,7 +80,6 @@ public class BugCourtBeans {
             ACCESS_CONTROL_REQUEST_HEADERS,
             ACCESS_CONTROL_ALLOW_CREDENTIALS
         ));
-        
         // Explicitly list all allowed methods
         config.setAllowedMethods(List.of(
             GET.name(),
@@ -92,7 +89,6 @@ public class BugCourtBeans {
             DELETE.name(),
             OPTIONS.name()
         ));
-        
         urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", config);
         return new CorsFilter(urlBasedCorsConfigurationSource);
     } 
@@ -104,7 +100,6 @@ public class BugCourtBeans {
    	    sessionFactory.setDataSource(dataSource);
    	    sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath*:/mappers/**/*Mapper.xml"));
    	    sessionFactory.setConfigLocation(new PathMatchingResourcePatternResolver().getResource("classpath:mybatisConfig.xml")); 
-           
 //   	    org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
 //   	    configuration.setMapUnderscoreToCamelCase(true);
 //   	    sessionFactory.setConfiguration(configuration);
