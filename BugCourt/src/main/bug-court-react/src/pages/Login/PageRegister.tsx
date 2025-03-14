@@ -53,12 +53,11 @@ const PageRegister = () => {
   const navigate = useNavigate();
   
   const goToLogin = () => {
-    navigate("/login/login-page");
+    navigate("/login");
   };
 
 
   return (
-    <Layout>
       <>
         <meta charSet="utf-8" />
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -104,7 +103,7 @@ const PageRegister = () => {
                               Your Name
                             </label>
                             <input
-                              className="form-control"
+                              className="form-control"  
                               type="name"
                               name="userNm"
                               value={inputUserNm}
@@ -134,7 +133,7 @@ const PageRegister = () => {
                           </div>
                           <div className="col-12">
                             <label htmlFor="yourUsername" className="form-label">
-                              Username
+                              Username      
                             </label>
                             <div className="input-group has-validation">
                               <span
@@ -235,7 +234,6 @@ const PageRegister = () => {
         {/* Template Main JS File */}
       </>
 
-    </Layout>
   )
 }
 

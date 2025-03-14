@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/bbs")
 public class BbsController extends BaseController{
 
-	@Autowired
+	@Autowired		
 	BbsService bbsService;
 	
 	
@@ -30,7 +30,7 @@ public class BbsController extends BaseController{
 		log.info("viewBbsList");
 		
 		return ResponseEntity.status(HttpStatus.FOUND)
-                .header("Location", "http://localhost:5173/bbs/bbs-list-page")
+                .header("Location", "http://localhost:5173/bbs/general-problem")
                 .build();
 	}
 	
