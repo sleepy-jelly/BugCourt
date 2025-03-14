@@ -68,8 +68,8 @@ const GeneralProblem: React.FC = () => {
                       <td>Dynamic Division Officer</td>
                       <td>47</td>
                       <td>2011-04-19</td>
-                    </tr>
-                  </tbody>
+	                    </tr>
+	                  </tbody>
                 </table>
                 {/* End Table with hoverable rows */}
               </div>
@@ -79,7 +79,7 @@ const GeneralProblem: React.FC = () => {
       </section>
     </div>
   );
-};``
+};
 
 export default GeneralProblem;
 
