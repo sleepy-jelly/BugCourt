@@ -1,24 +1,21 @@
-import Layout from '../../components/layouts/Layout'
 import NotFoundImage from "../../assets/img/not-found.svg";
-
 
 const PageError404 = () => {
   return (
-    <Layout>
-      <>
-        <meta charSet="utf-8" />
-        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-        <title>Pages / Not Found 404 - NiceAdmin Bootstrap Template</title>
-        <meta content="" name="description" />
-        <meta content="" name="keywords" />
-        {/* Favicons */}
-        {/* =======================================================
-        * Template Name: NiceAdmin
-        * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-        * Updated: Apr 20 2024 with Bootstrap v5.3.3
-        * Author: BootstrapMade.com
-        * License: https://bootstrapmade.com/license/
-        ======================================================== */}
+    <>
+      <meta charSet="utf-8" />
+      <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+      <title>Pages / Not Found 404 - NiceAdmin Bootstrap Template</title>
+      <meta content="" name="description" />
+      <meta content="" name="keywords" />
+      {/* Favicons */}
+      {/* =======================================================
+      * Template Name: NiceAdmin
+      * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+      * Updated: Apr 20 2024 with Bootstrap v5.3.3
+      * Author: BootstrapMade.com
+      * License: https://bootstrapmade.com/license/
+      ======================================================== */}
       <main>
         <div className="container">
           <section className="section error-404 min-vh-100 d-flex flex-column align-items-center justify-content-center">
@@ -52,9 +49,7 @@ const PageError404 = () => {
       {/* Vendor JS Files */}
       {/* Template Main JS File */}
     </>
-    </Layout>
   )
 }
-
 
 export default PageError404
