@@ -1,4 +1,3 @@
-import Layout from '../../components/layouts/Layout'
 import apiRequester from '../../Api/AxiosInstance';
 
 import { useNavigate } from "react-router-dom";
