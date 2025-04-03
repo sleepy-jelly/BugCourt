@@ -50,7 +50,7 @@
 		FROM
 			TN_BBS TB
 		WHERE
-			BBS_DVSN_CD = #{userId}	
+			BBS_SN = #{bbsSn}	
 	</select>
 	
 	
