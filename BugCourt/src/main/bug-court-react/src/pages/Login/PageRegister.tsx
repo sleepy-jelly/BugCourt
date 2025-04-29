@@ -23,8 +23,8 @@ const PageRegister = () => {
   };  
   const handleInputUserEmail = (e : React.ChangeEvent<HTMLInputElement>) => {
     setUserEmail(e.target.value);
-  };  
-
+    
+  };    
   
   // const submitHandler = (e : any) => {
   //   e.preventDefault();
@@ -77,12 +77,12 @@ const PageRegister = () => {
                 <div className="row justify-content-center">
                   <div className="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
                     <div className="d-flex justify-content-center py-4">
-                      <a
+                      <a 
                         href="index.html"
                         className="logo d-flex align-items-center w-auto"
                       >
-                        <img src="assets/img/logo.png" alt="" />
-                        <span className="d-none d-lg-block">BugCourt</span>
+                          <img src="assets/img/logo.png" alt="" />
+                          <span className="d-none d-lg-block">BugCourt</span>
                       </a>
                     </div>
                     {/* End Logo */}
@@ -149,7 +149,7 @@ const PageRegister = () => {
                                 value={inputUserId}
                                 onChange={handleInputUserId}
                                 required
-                              />
+                              />a
                               <div className="invalid-feedback">
                                 Please choose a username.
                               </div>
