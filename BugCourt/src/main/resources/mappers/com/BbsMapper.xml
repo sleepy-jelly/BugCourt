@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper 
+	namespace="com.sleepyjelly.pb.bbs.service.impl.BbsMapper">
+	
+	
+	
+
+	<!-- @paging -->
+	<select id="bbslistCount"
+		parameterType="com.sleepyjelly.pb.bbs.service.SearchBbsVO"
+		resultType="int">
+		/* bbslistCount - 목록 갯수 조회 */
+		SELECT
+			COUNT(*)
+		FROM 
+			TN_BBS
+		<where>
+			<if test="searchKeyword != null and searchKeyword != ''">
+				<choose>
+					<when test="searchCondition == BT">
+						AND BBS_TITLE LIKE '%' || #{searchKeyword} || '%'
+					</when>
+					<when test="searchCondition == FRI">
+						AND FRST_REGR_ID LIKE '%' || #{searchKeyword} || '%'
+					</when>
+				</choose>
+			</if>
+		</where>
+
+	</select>
+	
+	<select id="selectDtlBbs" 
+			parameterType="com.sleepyjelly.pb.bbs.service.BbsVO"  
+			resultType="com.sleepyjelly.pb.bbs.service.BbsVO">
+		SELECT
+			BBS_SN
+			,BBS_DVSN_CD,
+			,BBS_TITLE
+			,BBS_TAG
+			,BBS_CN
+			,VIEWS
+			,DEL_YN
+			,TEST_CASE_EX
+			,FRST_REGR_ID
+			,FRST_RER_DT
+			,TO_CHAR(FRST_RER_DT, 'YYYY-MM-DD')  as FRST_RER_DATE
+			,LAST_CHGR_ID 
+			,LAST_CHG_DT
+		FROM
+			TN_BBS TB
+		WHERE
+			BBS_SN = #{bbsSn}	
+	</select>
+	
+	
+	<insert id="insertBbs"
+			parameterType="com.sleepyjelly.pb.bbs.service.BbsVO">
+		INSERT INTO 
+			TN_BBS
+			(
+				BBS_SN,
+				BBS_DVSN_CD, 
+				BBS_TITLE,
+				BBS_TAG,
+				BBS_CN,
+				FRST_REGR_ID,
+				FRST_RER_DT, 
+				LAST_CHGR_ID, 
+				LAST_CHG_DT
+			)
+		values
+			(
+				nextval(seq_bbs),
+				'FAQ', 
+				'BBS test title', 
+				'Testing',
+				'this is test value',
+				'jelly',
+				SYSDATE(),
+				'jelly',
+				SYSDATE()
+			)
+	</insert>
+	
+	
+</mapper>
+	

@@ -5,40 +5,41 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.sleepyjelly.pb.common.base.web.BaseController;
+import com.sleepyjelly.pb.common.service.JwtService;
 import com.sleepyjelly.pb.common.user.service.UserService;
 import com.sleepyjelly.pb.common.user.service.UserVO;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
 
 @Slf4j
 @Controller
 @RequestMapping("/login")
-public class LoginController extends BaseController{
+@RequiredArgsConstructor
+public class LoginController extends BaseController {
 
-	@Autowired
-	private UserService userService;
+	private final UserDetailsService userDetailsService;
+	private final UserService userService;
+	private final JwtService jwtService;
 	
-	 
 	@RequestMapping(value="/viewLogin", method = {RequestMethod.GET, RequestMethod.POST})
 	public ResponseEntity<Void> login(ModelAndView mav) {
 		log.info("viewLogin");
@@ -47,31 +48,35 @@ public class LoginController extends BaseController{
                 .build();
 	}
 	
-	
+
 	@RequestMapping(value="/loginSuccessful", method = {RequestMethod.GET, RequestMethod.POST})
-	public ResponseEntity<Map<String, String>>  loginSuccessful() throws Exception {
+	public ResponseEntity<Map<String, String>> loginSuccessful() throws Exception {
 		log.info("loginSuccessful");
 		
 		Map<String, String> resultMap = new HashMap<String, String>();
 		
-		resultMap.put("ReturnMessage", "Sucessful");
+		// Get the current authentication
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		log.info("loginSuccessful --> username -> {}", username);
 		
+		// Get UserDetails from UserDetailsService
+		UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+		log.info("loginSuccessful --> userDetails -> {}", userDetails);
 		
+		// Generate JWT token using UserDetails
+		String token = jwtService.generateToken(userDetails);
+		resultMap.put("token", token);
+		resultMap.put("ReturnMessage", "Successful");
+		resultMap.put("Redirect", "/dash-board");
 		
-		resultMap.put("Redirect", "/login-page");
+		String getAuthentication = SecurityContextHolder.getContext().getAuthentication().getName();
+		log.info("loginSuccessful --> getAuthentication ->{}",getAuthentication);
 		
-		
-		
-		
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		log.info("loginSuccessful --> username ->{}",username);
-		
-//
 		return ResponseEntity
-				.status(HttpStatus.OK)
-				.header("Origin", "http://localhost:5173")
-				.body((resultMap));
-			
+			.status(HttpStatus.OK)
+			.header("Origin", "http://localhost:5173")
+			.body(resultMap);
 	}
 	
 
@@ -79,38 +84,42 @@ public class LoginController extends BaseController{
 	public ResponseEntity<Void> viewPageRegister(ModelAndView mav) throws Exception {
 		log.info("viewPageRegister");
 		
-
-		return ResponseEntity.status(HttpStatus.OK)
-                .header("Location", "http://localhost:5173/login/register-page")
-                .build();
+		return ResponseEntity.status(HttpStatus.FOUND)
+			.header("Location", "http://localhost:5173/login/register-page")
+			.build();
 	}
 	
 	
 	@PostMapping(value="/registerProcess")
-	public ResponseEntity<String> registerProcess(@RequestBody @Valid UserVO userVO, ModelAndView mav, BindingResult bindingResult)  {
+	public ResponseEntity<Map<String, String>> registerProcess(@RequestBody @Valid UserVO userVO, ModelAndView mav, BindingResult bindingResult)  {
+		Map<String, String> responseMap = new HashMap<>();
+		
 		if (bindingResult.hasErrors()) {
 	        List<FieldError> list = bindingResult.getFieldErrors();
 	        for(FieldError error : list) {
-	            return new ResponseEntity<String>(error.getDefaultMessage() , HttpStatus.BAD_REQUEST);
+	            responseMap.put("error", error.getDefaultMessage());
+	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseMap);
 	        }
 	    }
 		
 		log.info("registerProcess");
 		
-		
 		try {
+			// Check if user already exists
+			if (userService.selectUserByUserId(userVO) != null) {
+				responseMap.put("error", "User ID already exists. Please choose a different ID.");
+				return ResponseEntity.status(HttpStatus.CONFLICT).body(responseMap);
+			}
+			
 			userService.insertUserByRegiste(userVO);
+			responseMap.put("message", "Registration successful");
+			return ResponseEntity.ok(responseMap);
+			
 		} catch (Exception e) {
-			e.printStackTrace();
-	 		return ResponseEntity.status(500)
-	 				.header("Location", "http://localhost:5173/login/login-page")
-	 				.build();
+			log.error("Registration error: ", e);
+			responseMap.put("error", "An error occurred during registration. Please try again.");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseMap);
 		}
-
-		return ResponseEntity.status(HttpStatus.FOUND)
-	        .header("Location", "http://localhost:5173/login/login-page")
-	        .build();
-
 	}
 	
 	 /**
@@ -135,21 +144,7 @@ public class LoginController extends BaseController{
 
         Object principal = authentication.getPrincipal();
 
-        return (Boolean.valueOf(!Objects.isNull(principal)));
+        return (Boolean.valueOf(!Objects.isNull(principal))); 
     }
-	
-	
-//	
-//	UserVO userVO = new UserVO();
-//	
-//	userVO.setUserId("sleepyjelly");
-//	
-//	if(userService.selectUserByUserId(userVO)!=null) {
-//		userVO = userService.selectUserByUserId(userVO);
-//	};
-//	log.info("userVO"+userVO);
-//
-//	log.info("selectUserByUserId");
-	
 	
 }

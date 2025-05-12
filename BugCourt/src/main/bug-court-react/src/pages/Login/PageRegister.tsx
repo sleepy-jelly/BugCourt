@@ -1,4 +1,3 @@
-import Layout from '../../components/layouts/Layout'
 import apiRequester from '../../Api/AxiosInstance';
 
 import { useNavigate } from "react-router-dom";
@@ -24,8 +23,8 @@ const PageRegister = () => {
   };  
   const handleInputUserEmail = (e : React.ChangeEvent<HTMLInputElement>) => {
     setUserEmail(e.target.value);
-  };  
-
+    
+  };    
   
   // const submitHandler = (e : any) => {
   //   e.preventDefault();
@@ -58,7 +57,6 @@ const PageRegister = () => {
 
 
   return (
-    <Layout>
       <>
         <meta charSet="utf-8" />
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -79,12 +77,12 @@ const PageRegister = () => {
                 <div className="row justify-content-center">
                   <div className="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
                     <div className="d-flex justify-content-center py-4">
-                      <a
+                      <a 
                         href="index.html"
                         className="logo d-flex align-items-center w-auto"
                       >
-                        <img src="assets/img/logo.png" alt="" />
-                        <span className="d-none d-lg-block">BugCourt</span>
+                          <img src="assets/img/logo.png" alt="" />
+                          <span className="d-none d-lg-block">BugCourt</span>
                       </a>
                     </div>
                     {/* End Logo */}
@@ -104,7 +102,7 @@ const PageRegister = () => {
                               Your Name
                             </label>
                             <input
-                              className="form-control"
+                              className="form-control"  
                               type="name"
                               name="userNm"
                               value={inputUserNm}
@@ -134,7 +132,7 @@ const PageRegister = () => {
                           </div>
                           <div className="col-12">
                             <label htmlFor="yourUsername" className="form-label">
-                              Username
+                              Username      
                             </label>
                             <div className="input-group has-validation">
                               <span
@@ -151,7 +149,7 @@ const PageRegister = () => {
                                 value={inputUserId}
                                 onChange={handleInputUserId}
                                 required
-                              />
+                              />a
                               <div className="invalid-feedback">
                                 Please choose a username.
                               </div>
@@ -235,7 +233,6 @@ const PageRegister = () => {
         {/* Template Main JS File */}
       </>
 
-    </Layout>
   )
 }
 
