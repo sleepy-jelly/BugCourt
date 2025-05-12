@@ -1,20 +1,22 @@
 import Header from './Header'
 import Footer from './Footer'
-import { useLocation } from 'react-router-dom'
+import Sidebar from './Sidebar'
+import { useLocation, Outlet } from 'react-router-dom'
 
-const Layout = (props : {children : React.ReactNode})=>{
+const Layout = () => {
   const location = useLocation();
   const isLoginPage = location.pathname === '/login/login-page';
   const isRegisterPage = location.pathname === '/login/register-page';
-  const isDashboard = location.pathname === '/dash-board';
-  const isErrorPage = !isLoginPage && !isRegisterPage && !isDashboard;
+  const isErrorPage = location.pathname === '*';
 
   return(
     <>
       {!isLoginPage && !isRegisterPage && !isErrorPage && <Header/>}
-      <main>{props.children}</main>
+      {!isLoginPage && !isRegisterPage && !isErrorPage && <Sidebar/>}
+      <main><Outlet/></main>
       <Footer/>
     </>
   )
 }
+
 export default Layout

@@ -1,27 +1,35 @@
 package com.sleepyjelly.pb.bbs.service.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.sleepyjelly.pb.bbs.service.BbsService;
 import com.sleepyjelly.pb.bbs.service.BbsVO;
-import com.sleepyjelly.pb.common.user.service.UserVO;
-
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service("bbsService")
-public class BbsServiceImpl implements BbsService{@Override
+public class BbsServiceImpl implements BbsService{
+		
+	private BbsMapper bbsMapper;
 	
-	public BbsVO selectBbsByBbsId(BbsVO userVO) {
-		return null;
+	@Override
+	public BbsVO selectBbsByBbsId(BbsVO bbsVO) {
+		BbsVO selectedBbs = bbsMapper.selectDtlBbs(bbsVO);	
+		return selectedBbs;
 	}
 
 	@Override
-	public int insertBbs(BbsVO userVO) {
-		return 0;
+	public void insertBbs(BbsVO bbsVO)throws Exception{
+		bbsMapper.insertBbsVO(bbsVO);
 	}
 
-		
+	@Override
+	public List<BbsVO> selectBbsList(BbsVO bbsVO) {
+		List<BbsVO> selectedBbsList = bbsMapper.selectBbsList(bbsVO);
+		return selectedBbsList;	
+	}
 
 	
 }

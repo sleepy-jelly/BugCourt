@@ -74,9 +74,9 @@ public class LoginController extends BaseController {
 		log.info("loginSuccessful --> getAuthentication ->{}",getAuthentication);
 		
 		return ResponseEntity
-				.status(HttpStatus.OK)
-				.header("Origin", "http://localhost:5173")
-				.body(resultMap);
+			.status(HttpStatus.OK)
+			.header("Origin", "http://localhost:5173")
+			.body(resultMap);
 	}
 	
 
@@ -85,8 +85,8 @@ public class LoginController extends BaseController {
 		log.info("viewPageRegister");
 		
 		return ResponseEntity.status(HttpStatus.FOUND)
-                .header("Location", "http://localhost:5173/login/register-page")
-                .build();
+			.header("Location", "http://localhost:5173/login/register-page")
+			.build();
 	}
 	
 	
@@ -146,19 +146,5 @@ public class LoginController extends BaseController {
 
         return (Boolean.valueOf(!Objects.isNull(principal))); 
     }
-	
-	
-//	
-//	UserVO userVO = new UserVO();
-//	
-//	userVO.setUserId("sleepyjelly");
-//	
-//	if(userService.selectUserByUserId(userVO)!=null) {
-//		userVO = userService.selectUserByUserId(userVO);
-//	};
-//	log.info("userVO"+userVO);
-//
-//	log.info("selectUserByUserId");
-	
 	
 }

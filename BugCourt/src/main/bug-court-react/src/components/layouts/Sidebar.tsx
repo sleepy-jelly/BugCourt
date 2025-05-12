@@ -1,65 +1,70 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Sidebar: React.FC = () => {
+  const [isProblemsOpen, setIsProblemsOpen] = useState(false);
+
+  const toggleProblems = () => {
+    setIsProblemsOpen(!isProblemsOpen);
+  };
+
   return (
     <aside id="sidebar" className="sidebar">
       <ul className="sidebar-nav" id="sidebar-nav">
         <li className="nav-item">
-          <a className="nav-link" href="index.html">
+          <Link to="/dash-board" className="nav-link">
             <i className="bi bi-grid" />
             <span>Dashboard</span>
-          </a>
+          </Link>
         </li>
 
         <li className="nav-item">
           <a
-            className="nav-link collapsed"
-            data-bs-target="#tables-nav"
-            data-bs-toggle="collapse"
-            href="#"
+            className={`nav-link ${isProblemsOpen ? '' : 'collapsed'}`}
+            onClick={toggleProblems}
+            style={{ cursor: 'pointer' }}
           >
             <i className="bi bi-layout-text-window-reverse" />
             <span>Problems</span>
-            <i className="bi bi-chevron-down ms-auto" />
+            <i className={`bi bi-chevron-down ms-auto ${isProblemsOpen ? 'rotate-180' : ''}`} />
           </a>
           <ul
-            id="tables-nav"
-            className="nav-content collapse"
+            className={`nav-content collapse ${isProblemsOpen ? 'show' : ''}`}
             data-bs-parent="#sidebar-nav"
           >
             <li>
-              <a href="tables-general.html">
+              <Link to="/bbs/general-problem">
                 <i className="bi bi-circle" />
                 <span>General Problems</span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="tables-data.html">
+              <Link to="/bbs/discuss">
                 <i className="bi bi-circle" />
                 <span>Discuss</span>
-              </a>
+              </Link>
             </li>
           </ul>
         </li>
 
         <li className="nav-heading">Pages</li>
         <li className="nav-item">
-          <a className="nav-link collapsed" href="users-profile.html">
+          <Link to="/profile" className="nav-link">
             <i className="bi bi-person" />
             <span>Profile</span>
-          </a>
+          </Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link collapsed" href="pages-faq.html">
+          <Link to="/faq" className="nav-link">
             <i className="bi bi-question-circle" />
             <span>F.A.Q</span>
-          </a>
+          </Link>
         </li>
         <li className="nav-item">
-          <a className="nav-link collapsed" href="pages-contact.html">
+          <Link to="/contact" className="nav-link">
             <i className="bi bi-envelope" />
             <span>Contact</span>
-          </a>
+          </Link>
         </li>
       </ul>
     </aside>
