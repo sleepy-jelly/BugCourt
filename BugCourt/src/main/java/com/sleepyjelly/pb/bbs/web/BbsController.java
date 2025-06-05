@@ -40,7 +40,6 @@ public class BbsController extends BaseController{
 	public ResponseEntity<Void> selectBbsList(ModelAndView mav) throws Exception {
 		log.info("viewBbsList");
 		
-		
 		return ResponseEntity.status(HttpStatus.FOUND)
                 .header("Location", "http://localhost:5173/bbs/bbs-list-page")
                 .build();

@@ -27,6 +27,7 @@ import com.sleepyjelly.pb.common.user.service.UserService;
 import com.sleepyjelly.pb.common.user.service.UserVO;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,6 +41,8 @@ public class LoginController extends BaseController {
 	private final UserService userService;
 	private final JwtService jwtService;
 	
+
+    
 	@RequestMapping(value="/viewLogin", method = {RequestMethod.GET, RequestMethod.POST})
 	public ResponseEntity<Void> login(ModelAndView mav) {
 		log.info("viewLogin");

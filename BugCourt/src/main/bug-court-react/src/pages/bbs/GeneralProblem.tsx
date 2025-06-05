@@ -4,13 +4,13 @@ const GeneralProblem: React.FC = () => {
   return (
     <div id="main" className="main">
       <div className="pagetitle">
-        <h1>General Tables</h1>
+        <h1>General Problems</h1>
         <nav>
           <ol className="breadcrumb">
             <li className="breadcrumb-item">
-              <a href="index.html">Home</a>
+              <a href="index.html">Problems</a>
             </li>
-            <li className="breadcrumb-item">Tables</li>
+            {/* <li className="breadcrumb-item">Tables</li> */}
             <li className="breadcrumb-item active">General</li>
           </ol>
         </nav>
@@ -21,7 +21,7 @@ const GeneralProblem: React.FC = () => {
           <div className="col-lg-12">
             <div className="card">
               <div className="card-body">
-                <h5 className="card-title">Table with hoverable rows</h5>
+                <h5 className="card-title">General Problems</h5>
                 {/* Table with hoverable rows */}
                 <table className="table table-hover">
                   <thead>
