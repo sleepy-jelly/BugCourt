@@ -1,8 +1,24 @@
 
 # BugCourt
  Repository for an online compiler server designed to judge code
+BugCourt architecture
+ 
+![BugCourt architectureV0 1](https://github.com/user-attachments/assets/0c8a790b-ee3e-4587-8cce-9df46442831e)
 
 # WIP
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # React + TypeScript + Vite
