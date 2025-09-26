@@ -5,7 +5,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = {
+    org.springframework.boot.autoconfigure.batch.BatchAutoConfiguration.class
+})
 @ComponentScan(nameGenerator = CustomBeanNameGenerator.class)
 @MapperScan("com.sleepyjelly.pb.common.user.service.impl")
 public class BugCourtApplication {
